@@ -17,7 +17,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Paramiko; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
-from __future__ import with_statement
+
+from __future__ import print_function, with_statement
 
 import string
 import sys
@@ -47,16 +48,16 @@ key_dispatch_table = {
 def progress(arg=None):
 
     if not arg:
-        print '0%\x08\x08\x08',
+        print('0%\x08\x08\x08', end=' ')
         sys.stdout.flush()
     elif arg[0] == 'p':
-        print '25%\x08\x08\x08\x08',
+        print('25%\x08\x08\x08\x08', end=' ')
         sys.stdout.flush()
     elif arg[0] == 'h':
-        print '50%\x08\x08\x08\x08',
+        print('50%\x08\x08\x08\x08', end=' ')
         sys.stdout.flush()
     elif arg[0] == 'x':
-        print '75%\x08\x08\x08\x08',
+        print('75%\x08\x08\x08\x08', end=' ')
         sys.stdout.flush()
 
 if __name__ == '__main__':
@@ -121,7 +122,7 @@ if __name__ == '__main__':
             f.write(" %s" % comment)
 
     if options.verbose:
-        print "done."
+        print("done.")
 
     hash = hexlify(pub.get_fingerprint())
-    print "Fingerprint: %d %s %s.pub (%s)" % (bits, ":".join([ hash[i:2+i] for i in range(0, len(hash), 2)]), filename, string.upper(ktype))
+    print("Fingerprint: %d %s %s.pub (%s)" % (bits, ":".join([ hash[i:2 + i] for i in range(0, len(hash), 2)]), filename, string.upper(ktype)))

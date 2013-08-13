@@ -18,6 +18,7 @@
 # along with Paramiko; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
 
+from __future__ import print_function
 
 import base64
 import getpass
@@ -42,7 +43,7 @@ if len(sys.argv) > 1:
 else:
     hostname = raw_input('Hostname: ')
 if len(hostname) == 0:
-    print '*** Hostname required.'
+    print('*** Hostname required.')
     sys.exit(1)
 port = 22
 if hostname.find(':') >= 0:
@@ -64,18 +65,18 @@ try:
     client = paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.WarningPolicy)
-    print '*** Connecting...'
+    print('*** Connecting...')
     client.connect(hostname, port, username, password)
     chan = client.invoke_shell()
-    print repr(client.get_transport())
-    print '*** Here we go!'
-    print
+    print(repr(client.get_transport()))
+    print('*** Here we go!')
+    print()
     interactive.interactive_shell(chan)
     chan.close()
     client.close()
 
 except Exception, e:
-    print '*** Caught exception: %s: %s' % (e.__class__, e)
+    print('*** Caught exception: %s: %s' % (e.__class__, e))
     traceback.print_exc()
     try:
         client.close()

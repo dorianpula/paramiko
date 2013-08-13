@@ -26,6 +26,8 @@ forwarding (the openssh -L option) from a local port through a tunneled
 connection to a destination reachable from the SSH server machine.
 """
 
+from __future__ import print_function
+
 import getpass
 import os
 import socket
@@ -96,7 +98,7 @@ def forward_tunnel(local_port, remote_host, remote_port, transport):
 
 def verbose(s):
     if g_verbose:
-        print s
+        print(s)
 
 
 HELP = """\
@@ -164,7 +166,7 @@ def main():
         client.connect(server[0], server[1], username=options.user, key_filename=options.keyfile,
                        look_for_keys=options.look_for_keys, password=password)
     except Exception, e:
-        print '*** Failed to connect to %s:%d: %r' % (server[0], server[1], e)
+        print('*** Failed to connect to %s:%d: %r' % (server[0], server[1], e))
         sys.exit(1)
 
     verbose('Now forwarding port %d to %s:%d ...' % (options.port, remote[0], remote[1]))
@@ -172,7 +174,7 @@ def main():
     try:
         forward_tunnel(options.port, remote[0], remote[1], client.get_transport())
     except KeyboardInterrupt:
-        print 'C-c: Port forwarding stopped.'
+        print('C-c: Port forwarding stopped.')
         sys.exit(0)
 
 
