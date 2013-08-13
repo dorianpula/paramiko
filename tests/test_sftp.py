@@ -644,7 +644,7 @@ class SFTPTest (unittest.TestCase):
         try:
             sftp.rename(FOLDER + '/something', FOLDER + u'/\u00fcnic\u00f8de')
             sftp.open(FOLDER + '/\xc3\xbcnic\xc3\xb8\x64\x65', 'r')
-        except Exception, e:
+        except Exception as e:
             self.fail('exception ' + e)
         sftp.unlink(FOLDER + '/\xc3\xbcnic\xc3\xb8\x64\x65')
 

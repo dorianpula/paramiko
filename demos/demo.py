@@ -110,7 +110,7 @@ if hostname.find(':') >= 0:
 try:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((hostname, port))
-except Exception, e:
+except Exception as e:
     print('*** Connect failed: ' + str(e))
     traceback.print_exc()
     sys.exit(1)
@@ -168,7 +168,7 @@ try:
     chan.close()
     t.close()
 
-except Exception, e:
+except Exception as e:
     print('*** Caught exception: ' + str(e.__class__) + ': ' + str(e))
     traceback.print_exc()
     try:

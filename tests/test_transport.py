@@ -249,7 +249,7 @@ class TransportTest(ParamikoTest):
         try:
             chan.exec_command('no')
             self.assert_(False)
-        except SSHException, x:
+        except SSHException as x:
             pass
         
         chan = self.tc.open_session()
@@ -302,7 +302,7 @@ class TransportTest(ParamikoTest):
         try:
             chan = self.tc.open_channel('bogus')
             self.fail('expected exception')
-        except ChannelException, x:
+        except ChannelException as x:
             self.assert_(x.code == OPEN_FAILED_ADMINISTRATIVELY_PROHIBITED)
 
     def test_9_exit_status(self):

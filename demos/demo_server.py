@@ -85,7 +85,7 @@ try:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind(('', 2200))
-except Exception, e:
+except Exception as e:
     print('*** Bind failed: ' + str(e))
     traceback.print_exc()
     sys.exit(1)
@@ -94,7 +94,7 @@ try:
     sock.listen(100)
     print('Listening for connection ...')
     client, addr = sock.accept()
-except Exception, e:
+except Exception as e:
     print('*** Listen/accept failed: ' + str(e))
     traceback.print_exc()
     sys.exit(1)
@@ -112,7 +112,7 @@ try:
     server = Server()
     try:
         t.start_server(server=server)
-    except paramiko.SSHException, x:
+    except paramiko.SSHException as x:
         print('*** SSH negotiation failed.')
         sys.exit(1)
 
@@ -137,7 +137,7 @@ try:
     chan.send('\r\nI don\'t like you, ' + username + '.\r\n')
     chan.close()
 
-except Exception, e:
+except Exception as e:
     print('*** Caught exception: ' + str(e.__class__) + ': ' + str(e))
     traceback.print_exc()
     try:
