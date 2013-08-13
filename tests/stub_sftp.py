@@ -95,9 +95,9 @@ class StubSFTPServer (SFTPServerInterface):
             if mode is not None:
                 fd = os.open(path, flags, mode)
             else:
-                # os.open() defaults to 0777 which is
+                # os.open() defaults to 0o777 which is
                 # an odd default mode for files
-                fd = os.open(path, flags, 0666)
+                fd = os.open(path, flags, 0o666)
         except OSError as e:
             return SFTPServer.convert_errno(e.errno)
         if (flags & os.O_CREAT) and (attr is not None):

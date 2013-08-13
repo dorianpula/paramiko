@@ -285,10 +285,10 @@ class SFTPClient (BaseSFTP):
         self._log(DEBUG, 'rename(%r, %r)' % (oldpath, newpath))
         self._request(CMD_RENAME, oldpath, newpath)
 
-    def mkdir(self, path, mode=0777):
+    def mkdir(self, path, mode= 0o777):
         """
         Create a folder (directory) named C{path} with numeric mode C{mode}.
-        The default mode is 0777 (octal).  On some systems, mode is ignored.
+        The default mode is 0o777 (octal).  On some systems, mode is ignored.
         Where it is used, the current umask value is first masked out.
 
         @param path: name of the folder to create
