@@ -444,7 +444,8 @@ class TransportTest(ParamikoTest):
         schan = self.ts.accept(1.0)
         
         requested = []
-        def handler(c, (addr, port)):
+        def handler(c, remote):
+            addr, port = remote
             requested.append((addr, port))
             self.tc._queue_incoming_channel(c)
             
@@ -479,7 +480,9 @@ class TransportTest(ParamikoTest):
         schan = self.ts.accept(1.0)
         
         requested = []
-        def handler(c, (origin_addr, origin_port), (server_addr, server_port)):
+        def handler(c, origin, server):
+            origin_addr, origin_port = origin
+            server_addr, server_port = server
             requested.append((origin_addr, origin_port))
             requested.append((server_addr, server_port))
             self.tc._queue_incoming_channel(c)
