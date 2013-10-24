@@ -347,7 +347,7 @@ class Packetizer (object):
         if self.__block_engine_in != None:
             header = self.__block_engine_in.decrypt(header)
         if self.__dump_packets:
-            self._log(DEBUG, util.format_binary(header, 'IN: '));
+            self._log(DEBUG, util.format_binary(header, 'IN: '))
         packet_size = struct.unpack('>I', header[:4])[0]
         # leftover contains decrypted bytes from the first block (after the length field)
         leftover = header[4:]
@@ -359,7 +359,7 @@ class Packetizer (object):
         if self.__block_engine_in != None:
             packet = self.__block_engine_in.decrypt(packet)
         if self.__dump_packets:
-            self._log(DEBUG, util.format_binary(packet, 'IN: '));
+            self._log(DEBUG, util.format_binary(packet, 'IN: '))
         packet = leftover + packet
 
         if self.__mac_size_in > 0:

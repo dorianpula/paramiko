@@ -23,6 +23,7 @@ a real actual sftp server is contacted, and a new folder is created there to
 do test file operations in (so no existing files will be harmed).
 """
 
+from __future__ import absolute_import
 from __future__ import with_statement
 
 from binascii import hexlify
@@ -31,7 +32,10 @@ import warnings
 import sys
 import threading
 import unittest
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 import paramiko
 from stub_sftp import StubServer, StubSFTPServer
@@ -731,7 +735,7 @@ class SFTPTest (unittest.TestCase):
         Send an empty file and confirm it is sent.
         """
         target = FOLDER + '/empty file.txt'
-        stream = StringIO.StringIO()
+        stream = StringIO()
         try:
             attrs = sftp.putfo(stream, target)
             # the returned attributes should not be null

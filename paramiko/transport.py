@@ -762,7 +762,7 @@ class Transport (threading.Thread):
             self.lock.release()
         self._send_user_message(m)
         while True:
-            event.wait(0.1);
+            event.wait(0.1)
             if not self.active:
                 e = self.get_exception()
                 if e is None:

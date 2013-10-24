@@ -180,7 +180,7 @@ class BaseSFTP (object):
         size = struct.unpack('>I', x)[0]
         data = self._read_all(size)
         if self.ultra_debug:
-            self._log(DEBUG, util.format_binary(data, 'IN: '));
+            self._log(DEBUG, util.format_binary(data, 'IN: '))
         if size > 0:
             t = ord(data[0])
             #self._log(DEBUG2, 'read: %s (len=%d)' % (CMD_NAMES.get(t), '0x%02x' % t, len(data)-1))

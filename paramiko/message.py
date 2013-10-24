@@ -21,7 +21,10 @@ Implementation of an SSH2 "message".
 """
 
 import struct
-import cStringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 from paramiko import util
 
@@ -46,9 +49,9 @@ class Message (object):
         @type content: string
         """
         if content != None:
-            self.packet = cStringIO.StringIO(content)
+            self.packet = StringIO(content)
         else:
-            self.packet = cStringIO.StringIO()
+            self.packet = StringIO()
 
     def __str__(self):
         """
