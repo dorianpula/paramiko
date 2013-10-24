@@ -20,6 +20,9 @@
 Utility functions for dealing with primes.
 """
 
+import six
+if six.PY3:
+    long = lambda x: int(x)
 from Crypto.Util import number
 
 from paramiko import util

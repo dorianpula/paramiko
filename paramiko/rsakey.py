@@ -20,6 +20,10 @@
 L{RSAKey}
 """
 
+import six
+if six.PY3:
+    long = lambda x: int(x)
+
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA, MD5
 from Crypto.Cipher import DES3

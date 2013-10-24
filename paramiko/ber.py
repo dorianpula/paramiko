@@ -19,6 +19,8 @@
 from __future__ import absolute_import
 from paramiko import util
 
+import six
+
 
 class BERException (Exception):
     pass
@@ -112,7 +114,7 @@ class BER(object):
                 self.encode_tlv(1, '\xff')
             else:
                 self.encode_tlv(1, '\x00')
-        elif (type(x) is int) or (type(x) is long):
+        elif isinstance(x, six.integer_types):
             self.encode_tlv(2, util.deflate_long(x))
         elif type(x) is str:
             self.encode_tlv(4, x)

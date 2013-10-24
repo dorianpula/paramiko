@@ -20,6 +20,10 @@
 L{DSSKey}
 """
 
+import six
+if six.PY3:
+    long = lambda x: int(x)
+
 from Crypto.PublicKey import DSA
 from Crypto.Hash import SHA
 

@@ -20,6 +20,10 @@
 Client-mode SFTP support.
 """
 
+import six
+if six.PY3:
+    long = lambda x: int(x)
+
 from binascii import hexlify
 import errno
 import os
