@@ -27,6 +27,10 @@ import struct
 import threading
 import time
 
+import six
+if six.PY3:
+    long = lambda x: int(x)
+
 from paramiko.common import *
 from paramiko import util
 from paramiko.ssh_exception import SSHException, ProxyCommandFailure
@@ -94,8 +98,8 @@ class Packetizer (object):
         self.__mac_key_in = ''
         self.__compress_engine_out = None
         self.__compress_engine_in = None
-        self.__sequence_number_out = 0L
-        self.__sequence_number_in = 0L
+        self.__sequence_number_out = 0
+        self.__sequence_number_in = 0
 
         # lock around outbound writes (packet computation)
         self.__write_lock = threading.RLock()
@@ -315,7 +319,7 @@ class Packetizer (object):
             if self.__block_engine_out != None:
                 payload = struct.pack('>I', self.__sequence_number_out) + packet
                 out += compute_hmac(self.__mac_key_out, payload, self.__mac_engine_out)[:self.__mac_size_out]
-            self.__sequence_number_out = (self.__sequence_number_out + 1) & 0xffffffffL
+            self.__sequence_number_out = (self.__sequence_number_out + 1) & long(0xffffffff)
             self.write_all(out)
 
             self.__sent_bytes += len(out)
@@ -375,7 +379,7 @@ class Packetizer (object):
 
         msg = Message(payload[1:])
         msg.seqno = self.__sequence_number_in
-        self.__sequence_number_in = (self.__sequence_number_in + 1) & 0xffffffffL
+        self.__sequence_number_in = (self.__sequence_number_in + 1) & long(0xffffffff)
 
         # check for rekey
         raw_packet_size = packet_size + self.__mac_size_in + 4
