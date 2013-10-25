@@ -20,11 +20,15 @@
 Implementation of an SSH2 "message".
 """
 
+
 import struct
 try:
     from cStringIO import StringIO
 except ImportError:
     from io import StringIO
+import six
+if six.PY3:
+    long = lambda x: int(x)
 
 from paramiko import util
 
@@ -219,7 +223,7 @@ class Message (object):
         else:
             self.add_byte('\x00')
         return self
-            
+
     def add_int(self, n):
         """
         Add an integer to the stream.
@@ -273,17 +277,21 @@ class Message (object):
         """
         self.add_string(','.join(l))
         return self
-        
+
     def _add(self, i):
         if type(i) is str:
             return self.add_string(i)
-        elif type(i) is int:
-            return self.add_int(i)
-        elif type(i) is long:
-            if i > long(0xffffffff):
-                return self.add_mpint(i)
-            else:
+
+        elif type(i) in six.integer_types:
+
+            if type(i) is int and not six.PY3:
                 return self.add_int(i)
+            else:
+                if i > long(0xffffffff):
+                    return self.add_mpint(i)
+                else:
+                    return self.add_int(i)
+
         elif type(i) is bool:
             return self.add_boolean(i)
         elif type(i) is list:
