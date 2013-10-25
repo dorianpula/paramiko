@@ -25,6 +25,7 @@ import weakref
 
 # this helps freezing utils
 import encodings.utf_8
+import six
 
 from paramiko.common import *
 from paramiko import util
@@ -198,7 +199,7 @@ class AuthHandler (object):
             if self.auth_method == 'password':
                 m.add_boolean(False)
                 password = self.password
-                if isinstance(password, unicode):
+                if isinstance(password, six.text_type):
                     password = password.encode('UTF-8')
                 m.add_string(password)
             elif self.auth_method == 'publickey':

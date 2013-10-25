@@ -21,6 +21,8 @@ L{ServerInterface} is an interface to override for server support.
 """
 
 import threading
+import six
+
 from paramiko.common import *
 from paramiko import util
 
@@ -48,7 +50,7 @@ class InteractiveQuery (object):
         self.instructions = instructions
         self.prompts = []
         for x in prompts:
-            if (type(x) is str) or (type(x) is unicode):
+            if isinstance(x, (six.binary_type, six.text_type)):
                 self.add_prompt(x)
             else:
                 self.add_prompt(x[0], x[1])

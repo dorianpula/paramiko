@@ -280,7 +280,7 @@ class Transport (threading.Thread):
         @param sock: a socket or socket-like object to create the session over.
         @type sock: socket
         """
-        if isinstance(sock, (str, unicode)):
+        if isinstance(sock, (six.binary_type, six.text_type)):
             # convert "host:port" into (host, port)
             hl = sock.split(':', 1)
             if len(hl) == 1:

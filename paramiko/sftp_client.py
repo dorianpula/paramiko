@@ -373,7 +373,7 @@ class SFTPClient (BaseSFTP):
         """
         dest = self._adjust_cwd(dest)
         self._log(DEBUG, 'symlink(%r, %r)' % (source, dest))
-        if type(source) is unicode:
+        if isinstance(source, six.text_type):
             source = source.encode('utf-8')
         self._request(CMD_SYMLINK, source, dest)
 
@@ -774,7 +774,7 @@ class SFTPClient (BaseSFTP):
         Return an adjusted path if we're emulating a "current working
         directory" for the server.
         """
-        if type(path) is unicode:
+        if isinstance(path, six.text_type):
             path = path.encode('utf-8')
         if self._cwd is None:
             return path

@@ -25,6 +25,7 @@ import getpass
 import os
 import socket
 import warnings
+import six
 
 from paramiko.agent import Agent
 from paramiko.common import *
@@ -335,7 +336,7 @@ class SSHClient (object):
 
         if key_filename is None:
             key_filenames = []
-        elif isinstance(key_filename, (str, unicode)):
+        elif isinstance(key_filename, (six.binary_type, six.text_type)):
             key_filenames = [ key_filename ]
         else:
             key_filenames = key_filename
