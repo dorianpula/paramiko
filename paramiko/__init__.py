@@ -88,12 +88,16 @@ from paramiko.hostkeys import HostKeys
 from paramiko.config import SSHConfig
 from paramiko.proxy import ProxyCommand
 
-# fix module names for epydoc
-for c in locals().values():
-    if issubclass(type(c), type) or type(c).__name__ == 'classobj':
-        # classobj for exceptions :/
-        c.__module__ = __name__
-del c
+import six
+
+if not six.PY3:
+    # Skipping port to Python 3 since, Epydoc has not been ported to Python 3.
+    # fix module names for epydoc
+    for c in locals().values():
+        if issubclass(type(c), type) or type(c).__name__ == 'classobj':
+            # classobj for exceptions :/
+            c.__module__ = __name__
+    del c
 
 from paramiko.common import AUTH_SUCCESSFUL, AUTH_PARTIALLY_SUCCESSFUL, AUTH_FAILED, \
      OPEN_SUCCEEDED, OPEN_FAILED_ADMINISTRATIVELY_PROHIBITED,  OPEN_FAILED_CONNECT_FAILED, \
