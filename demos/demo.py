@@ -33,6 +33,11 @@ import traceback
 import paramiko
 import interactive
 
+try:
+    input = raw_input
+except NameError:
+    pass
+
 
 def agent_auth(transport, username):
     """
@@ -57,13 +62,13 @@ def agent_auth(transport, username):
 
 def manual_auth(username, hostname):
     default_auth = 'p'
-    auth = raw_input('Auth by (p)assword, (r)sa key, or (d)ss key? [%s] ' % default_auth)
+    auth = input('Auth by (p)assword, (r)sa key, or (d)ss key? [%s] ' % default_auth)
     if len(auth) == 0:
         auth = default_auth
 
     if auth == 'r':
         default_path = os.path.join(os.environ['HOME'], '.ssh', 'id_rsa')
-        path = raw_input('RSA key [%s]: ' % default_path)
+        path = input('RSA key [%s]: ' % default_path)
         if len(path) == 0:
             path = default_path
         try:
@@ -74,7 +79,7 @@ def manual_auth(username, hostname):
         t.auth_publickey(username, key)
     elif auth == 'd':
         default_path = os.path.join(os.environ['HOME'], '.ssh', 'id_dsa')
-        path = raw_input('DSS key [%s]: ' % default_path)
+        path = input('DSS key [%s]: ' % default_path)
         if len(path) == 0:
             path = default_path
         try:
@@ -97,7 +102,7 @@ if len(sys.argv) > 1:
     if hostname.find('@') >= 0:
         username, hostname = hostname.split('@')
 else:
-    hostname = raw_input('Hostname: ')
+    hostname = input('Hostname: ')
 if len(hostname) == 0:
     print('*** Hostname required.')
     sys.exit(1)
@@ -147,7 +152,7 @@ try:
     # get username
     if username == '':
         default_username = getpass.getuser()
-        username = raw_input('Username [%s]: ' % default_username)
+        username = input('Username [%s]: ' % default_username)
         if len(username) == 0:
             username = default_username
 

@@ -32,6 +32,11 @@ import traceback
 import paramiko
 
 
+try:
+    input = raw_input
+except NameError:
+    pass
+
 # setup logging
 paramiko.util.log_to_file('demo_sftp.log')
 
@@ -42,7 +47,7 @@ if len(sys.argv) > 1:
     if hostname.find('@') >= 0:
         username, hostname = hostname.split('@')
 else:
-    hostname = raw_input('Hostname: ')
+    hostname = input('Hostname: ')
 if len(hostname) == 0:
     print('*** Hostname required.')
     sys.exit(1)
@@ -55,7 +60,7 @@ if hostname.find(':') >= 0:
 # get username
 if username == '':
     default_username = getpass.getuser()
-    username = raw_input('Username [%s]: ' % default_username)
+    username = input('Username [%s]: ' % default_username)
     if len(username) == 0:
         username = default_username
 password = getpass.getpass('Password for %s@%s: ' % (username, hostname))
